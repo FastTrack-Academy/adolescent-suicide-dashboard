@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import numpy as np
 
-st.set_page_config(page_title="Sankey Visualization", layout="wide")
+st.set_page_config(page_title="YBRFSS Question Sankey Visualization", layout="wide")
 
 if 'df_full' not in st.session_state:
     st.warning("Please upload the data on the Home page first.")

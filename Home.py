@@ -15,9 +15,9 @@ Upload your dataset here once to start exploring the data across multiple pages.
 
 @st.cache_data
 def load_full_dataset(file):
-    return pd.read_excel(file, engine='openpyxl')
+    return pd.read_csv(file)
 
-df_full = load_full_dataset('SADCQ_2023.xlsx')
+df_full = load_full_dataset('SADCQ_2023.csv')
 st.session_state['df_full'] = df_full
 st.success("Data loaded successfully!")
 
