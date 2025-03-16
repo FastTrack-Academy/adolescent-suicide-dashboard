@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="YBRFSS Analysis", layout="wide")
+st.set_page_config(page_title="YBRFSS Analysis By Bill G.", layout="wide")
 
 st.title("Youth Behavioral Risk Factor Surveillance System (YBRFSS)")
 
 st.write("""
-### Project Overview
+## Project Overview
 This project analyzes data from the Youth Behavioral Risk Factor Surveillance System (YBRFSS), specifically focusing on adolescent suicide risk factors. 
 
 Upload your dataset here once to start exploring the data across multiple pages.
@@ -22,4 +22,3 @@ st.success("Data loaded successfully!")
 
 st.write("### Dataset Preview")
 st.dataframe(df_full.head())
-# hello world!
