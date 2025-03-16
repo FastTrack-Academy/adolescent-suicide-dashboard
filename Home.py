@@ -12,7 +12,6 @@ This project analyzes data from the Youth Behavioral Risk Factor Surveillance Sy
 Upload your dataset here once to start exploring the data across multiple pages.
 """)
 
-
 @st.cache_data
 def load_full_dataset(file):
     return pd.read_csv(file)
