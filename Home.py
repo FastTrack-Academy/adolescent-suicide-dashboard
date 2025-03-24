@@ -9,7 +9,6 @@ st.write("""
 ## Project Overview
 This project analyzes data from the Youth Behavioral Risk Factor Surveillance System (YBRFSS), specifically focusing on adolescent suicide risk factors. 
 
-Upload your dataset here once to start exploring the data across multiple pages.
 """)
 
 @st.cache_data

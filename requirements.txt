@@ -3,3 +3,7 @@ pandas
 plotly
 numpy
 openpyxl
+dowhy
+pyvis
+imblearn
+networkx

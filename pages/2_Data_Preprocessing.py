@@ -129,10 +129,58 @@ def create_sankey_data(df, name):
 
     return fig_detailed
 
-st.title("Adolescent Suicide Data Sankey Diagram")
+st.title("Adolescent Suicide Data Preprocessing and Sankey Visualization")
+
+def preprocess_full_data(df):
+    df_suicide_clean_whole = st.session_state['df_full'].iloc[df.index]
+
+    # List of relevant columns
+    relevant_columns = [
+        # Stats info
+        'weight', 'sitename',
+
+        # Demographics
+        'age', 'sex', 'grade', 'race4', 'race7',
+
+        # Mental Health
+        'q84', 'q26', 'q27', 'q28', 'q29', 'q30',
+
+        # Adverse Childhood Experiences
+        'qemoabuseace', 'qphyabuseace', 'qsexabuseace', 'qverbalabuseace', 'qphyviolenceace', 'qtreatbadlyace',
+        'qlivedwillace','qlivedwabuseace', 'qintviolenceace', 'qunfairlyace',
+
+
+        # Substance Use
+        'q42', 'q46', 'q49', 'q50', 'q51', 'q52', 'qcurrentopioid', 'qhallucdrug',
+
+        # Social and School Safety
+        'q24', 'q25', 'q14', 'q15', 'qclose2people', 'qtalkadultace', 'qtalkfriendace'
+    ]
+
+    df_suicide_clean_whole = df_suicide_clean_whole[relevant_columns]
+    df2 =df_suicide_clean_whole.copy()
+    df2['Label'] = 1
+    df2.loc[df2['q27'] == 1, 'Label'] = 2
+    df2.loc[df2['q29'] >= 2, 'Label'] = 3
+    df2.drop(columns=['q26','q27', 'q29', 'q28', 'q30'], inplace=True)
+
+    # Calculate the ratio of missing values for each column
+    nan_ratio = df2.isnull().mean()
+    cutoff = 0.5
+    drop_cols = nan_ratio[nan_ratio > cutoff].index
+    df3 = df2.drop(columns=drop_cols)
+    nan_ratio = df3.isnull().mean()
+    return df3.drop(['q50','q15', 'race4'], axis=1).dropna().reset_index(drop=True)
+
 
 if 'df_full' in st.session_state:
     df_clean = preprocess_suicide_data(st.session_state['df_full'])
+    df_clean.dropna(inplace=True, subset=['q26','q27', 'q29','q30'])
     sankey_fig = create_sankey_data(df_clean, "Clean Suicide Data")
 
     st.plotly_chart(sankey_fig, use_container_width=True)
+    df_clean_whole = preprocess_full_data(df_clean)
+    st.dataframe(df_clean_whole)
+    st.session_state['df_full_whole'] = df_clean_whole
+
+
