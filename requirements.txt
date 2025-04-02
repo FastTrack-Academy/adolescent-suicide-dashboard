@@ -8,3 +8,4 @@ pyvis
 imblearn
 network
 xgboost
+seaborn
